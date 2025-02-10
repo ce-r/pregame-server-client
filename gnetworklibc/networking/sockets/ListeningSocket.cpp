@@ -2,7 +2,7 @@
 
 
 gnetwork::ListeningSocket::ListeningSocket(int domain, int service, int protocol, int port, ulong interface, int bklg) 
-                                            : BindingSocket(domain, service, protocol, port, interface){
+                                            : BindingSocket(domain, service, protocol, port, interface) {
     backlog = bklg;
     _listening();
     test_conn(listening);
