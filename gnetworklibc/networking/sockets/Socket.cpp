@@ -2,7 +2,7 @@
 #include "Socket.hpp"
 
 
-gnetwork::Socket::Socket(int domain, int service, int protocol, int port, ulong interface){}
+gnetwork::Socket::Socket(int domain, int service, int protocol, int port, ulong interface) {}
 
 gnetwork::Socket::Socket(int domain, int service, int protocol, int port, u_long interface) {    
     address.sin_family = domain;
