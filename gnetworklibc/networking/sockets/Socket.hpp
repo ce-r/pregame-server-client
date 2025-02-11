@@ -5,7 +5,11 @@
 #include <stdio.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <stdexcept>
 #include <iostream> 
+#include <cstdint>
 
 
 namespace gnetwork {
@@ -14,14 +18,17 @@ namespace gnetwork {
             int sock;
             struct sockaddr_in address;
         public: 
-            Socket(int domain, int service, int protocol, int port, ulong interface);
+            Socket(int domain, int service, int protocol, int port, uint32_t interface);
             
-            virtual int conn_to_netw(int sock, struct sockaddr_in) = 0; 
+            virtual ~Socket();
+
+            // virtual int conn_to_netw(int sock, struct sockaddr_in& address) = 0; 
+            virtual int conn_to_netw(int sock, const struct sockaddr_in &address) = 0; 
             
-            void test_conn(int);
+            void test_conn(int sock);
             
-            int get_sock();
-            struct sockaddr_in get_address();
+            int get_sock() const;
+            struct sockaddr_in get_address() const;
     };
 }
 

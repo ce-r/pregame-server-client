@@ -16,9 +16,10 @@ namespace gnetwork {
             virtual void print_buffer() = 0;
             virtual void writer() = 0;
         public:
-            BasicServer(int domain, int service, int protocol, int port, u_long interface, int bklg);
+            BasicServer(int domain, int service, int protocol, int port, uint32_t interface, int bklg);
+            virtual ~BasicServer();
             virtual void launch() = 0;
-            ListeningSocket* get_socket();
+            ListeningSocket* get_socket() const;
     };
 }
 
