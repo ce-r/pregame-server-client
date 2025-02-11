@@ -8,6 +8,17 @@ gnetwork::Socket::Socket(int domain, int service, int protocol, int port, uint32
     address.sin_addr.s_addr = htonl(interface);
     sock = socket(domain, service, protocol);
     
+    int opt = 1;
+    if (setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) < 0) {
+        perror("setsockopt(SO_REUSEADDR) failed");
+        exit(EXIT_FAILURE);
+    }
+    
+    if (setsockopt(sock, IPPROTO_TCP, TCP_NODELAY, &opt, sizeof(opt)) < 0) {
+        perror("setsockopt(TCP_NODELAY) failed");
+        exit(EXIT_FAILURE);
+    }
+
     test_conn(sock);
 }
 

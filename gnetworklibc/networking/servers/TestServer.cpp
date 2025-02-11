@@ -4,7 +4,7 @@
 
 
 gnetwork::TestServer::TestServer() : BasicServer(AF_INET, SOCK_STREAM, 0, 80, INADDR_ANY, 10) {
-    launch();
+    slaunch();
 }
 
 void gnetwork::TestServer::acceptance() {
@@ -30,12 +30,12 @@ void gnetwork::TestServer::writer() {
     close(new_socket);
 }
 
-void gnetwork::TestServer::launch() {
+void gnetwork::TestServer::slaunch() {
     while (true) {
-        std::cout << "==== waiting ====" << std::endl;
+        std::cout << "==== waiting for connections ====" << std::endl;
         acceptance();
-        print_buffer();
         writer();
+        print_buffer();
         std::cout << "==== done ====" << std::endl;
     }
 }

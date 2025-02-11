@@ -1,5 +1,6 @@
-#ifndef BasicServer_hpp
-#define BasicServer_hpp
+
+#ifndef BasicServer_HPP
+#define BasicServer_HPP
 
 #include <stdio.h>
 #include <unistd.h>
@@ -13,12 +14,12 @@ namespace gnetwork {
         private:
             ListeningSocket* socket;
             virtual void acceptance() = 0;
-            virtual void print_buffer() = 0;
             virtual void writer() = 0;
+            virtual void print_buffer() = 0;
         public:
             BasicServer(int domain, int service, int protocol, int port, uint32_t interface, int bklg);
             virtual ~BasicServer();
-            virtual void launch() = 0;
+            virtual void slaunch() = 0;
             ListeningSocket* get_socket() const;
     };
 }

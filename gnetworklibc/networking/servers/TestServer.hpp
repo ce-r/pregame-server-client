@@ -1,6 +1,6 @@
 
-#ifndef TestServer_hpp
-#define TestServer_hpp
+#ifndef TestServer_HPP
+#define TestServer_HPP
 
 #include <stdio.h>
 #include "BasicServer.hpp"
@@ -12,14 +12,13 @@ namespace gnetwork {
             char buffer[30000] = {0};
             int new_socket;
             void acceptance();
-            void print_buffer();
             void writer();
-
+            void print_buffer();
+        
         public:
             TestServer();
-            void launch();
-    };
-        
+            void slaunch();
+    };  
 }
 
 #endif

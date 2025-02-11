@@ -1,6 +1,6 @@
 
-#ifndef ConnectingSocket_hpp
-#define ConnectingSocket_hpp
+#ifndef ConnectingSocket_HPP
+#define ConnectingSocket_HPP
 
 #include <stdio.h>
 #include "Socket.hpp"
