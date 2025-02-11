@@ -17,7 +17,7 @@ namespace gnetwork {
         
         public:
             TestServer();
-            void slaunch();
+            void launch();
     };  
 }
 

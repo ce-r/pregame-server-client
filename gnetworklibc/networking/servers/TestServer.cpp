@@ -4,13 +4,13 @@
 
 
 gnetwork::TestServer::TestServer() : BasicServer(AF_INET, SOCK_STREAM, 0, 80, INADDR_ANY, 10) {
-    slaunch();
+    launch();
 }
 
 void gnetwork::TestServer::acceptance() {
-    struct sockaddr_in address = get_socket()->get_address();
+    struct sockaddr_in address = get_serv_socket()->get_address();
     int addrlen = sizeof(address);
-    new_socket = accept(get_socket()->get_sock(), (struct sockaddr*) &address, (socklen_t*) &addrlen);
+    new_socket = accept(get_serv_socket()>get_serv_socket(), (struct sockaddr*) &address, (socklen_t*) &addrlen);
     if (new_socket < 0) {
         throw std::runtime_error("Failed to accept connection");
     }
@@ -23,14 +23,13 @@ void gnetwork::TestServer::print_buffer() {
 
 void gnetwork::TestServer::writer() {
     const char* hello = "hello from server";
-    // write(new_socket, hello, strlen(hello));
     if (write(new_socket, hello, strlen(hello)) < 0) {
         throw std::runtime_error("Failed to write to socket");
     }
     close(new_socket);
 }
 
-void gnetwork::TestServer::slaunch() {
+void gnetwork::TestServer::launch() {
     while (true) {
         std::cout << "==== waiting for connections ====" << std::endl;
         acceptance();

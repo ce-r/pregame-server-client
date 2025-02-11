@@ -12,15 +12,16 @@
 namespace gnetwork {
     class BasicServer {
         private:
-            ListeningSocket* socket;
+            ListeningSocket* serv_sock;
             virtual void acceptance() = 0;
             virtual void writer() = 0;
             virtual void print_buffer() = 0;
         public:
             BasicServer(int domain, int service, int protocol, int port, uint32_t interface, int bklg);
             virtual ~BasicServer();
-            virtual void slaunch() = 0;
-            ListeningSocket* get_socket() const;
+            virtual void launch() = 0;
+            // ListeningSocket* get_socket() const;
+            ListeningSocket* get_serv_socket() const;
     };
 }
 
