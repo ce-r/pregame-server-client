@@ -3,14 +3,12 @@
 #include <string.h>
 
 
-gnetwork::TestServer::TestServer() : BasicServer(AF_INET, SOCK_STREAM, 0, 80, INADDR_ANY, 10) {
-    launch();
-}
+gnetwork::TestServer::TestServer() : BasicServer(AF_INET, SOCK_STREAM, 0, 80, INADDR_ANY, 10) {}
 
 void gnetwork::TestServer::acceptance() {
     struct sockaddr_in address = get_serv_socket()->get_address();
     int addrlen = sizeof(address);
-    new_socket = accept(get_serv_socket()>get_serv_socket(), (struct sockaddr*) &address, (socklen_t*) &addrlen);
+    new_socket = accept(get_serv_socket()->get_sock(), (struct sockaddr*) &address, (socklen_t*) &addrlen);
     if (new_socket < 0) {
         throw std::runtime_error("Failed to accept connection");
     }
@@ -29,7 +27,7 @@ void gnetwork::TestServer::writer() {
     close(new_socket);
 }
 
-void gnetwork::TestServer::launch() {
+void gnetwork::TestServer::slaunch() {
     while (true) {
         std::cout << "==== waiting for connections ====" << std::endl;
         acceptance();
@@ -37,4 +35,10 @@ void gnetwork::TestServer::launch() {
         print_buffer();
         std::cout << "==== done ====" << std::endl;
     }
+}
+
+
+void gnetwork::TestServer::launch() {
+    std::cout << "Launching TestServer...\n";
+    slaunch();
 }

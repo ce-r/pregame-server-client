@@ -4,7 +4,9 @@
 
 
 int main() {
-    gnetwork::TestServer t;
+    gnetwork::TestServer server;
+    server.launch(); 
+    return 0;
 }
 
 
