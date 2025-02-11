@@ -23,7 +23,6 @@ namespace gnetwork {
             
             virtual ~Socket();
 
-            // virtual int conn_to_netw(int sock, struct sockaddr_in& address) = 0; 
             virtual int conn_to_netw(int sock, const struct sockaddr_in &address) = 0; 
             
             void test_conn(int sock);

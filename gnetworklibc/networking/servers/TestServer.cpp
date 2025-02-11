@@ -8,8 +8,7 @@ gnetwork::TestServer::TestServer() : BasicServer(AF_INET, SOCK_STREAM, 0, 80, IN
 void gnetwork::TestServer::acceptance() {
     struct sockaddr_in address = get_serv_socket()->get_address();
     int addrlen = sizeof(address);
-    int acc = get_serv_socket()->get_sock();
-    new_socket = accept(acc, (struct sockaddr*) &address, (socklen_t*) &addrlen);
+    new_socket = accept(get_serv_socket()->get_sock(), (struct sockaddr*) &address, (socklen_t*) &addrlen);
     if (new_socket < 0) {
         throw std::runtime_error("Failed to accept connection");
     }
