@@ -10,10 +10,6 @@ gnetwork::BasicClient::~BasicClient() {
     delete cli_socket;
 }
 
-// gnetwork::ConnectingSocket* gnetwork::BasicClient::get_socket() const {
-//     return socket;
-// } 
-
 gnetwork::ConnectingSocket* gnetwork::BasicClient::get_cli_socket() const {
     return cli_socket;
 } 
