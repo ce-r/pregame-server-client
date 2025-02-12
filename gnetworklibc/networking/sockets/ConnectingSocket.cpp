@@ -9,10 +9,6 @@ gnetwork::ConnectingSocket::~ConnectingSocket() {
     close(get_sock()); 
 }
 
-// int gnetwork::ConnectingSocket::conn_to_netw(int sock, const struct sockaddr_in& address) {
-//     return connect(sock, (struct sockaddr*) &address, sizeof(address));
-// }
-
 int gnetwork::ConnectingSocket::conn_to_netw(int sock, const struct sockaddr_in& address) {
     const int MAX_ATTEMPTS = 5;
     int delay = 1;  // initial delay in seconds
