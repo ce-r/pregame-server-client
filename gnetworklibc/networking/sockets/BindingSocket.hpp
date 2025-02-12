@@ -10,7 +10,8 @@ namespace gnetwork {
         private:
             int binding;
             int conn_to_netw(int sock, const struct sockaddr_in &address) override;
-        public: 
+        
+            public: 
             BindingSocket(int domain, int service, int protocol, int port, uint32_t interface);
             ~BindingSocket();
             int get_binding() const;
