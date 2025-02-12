@@ -10,12 +10,12 @@ gnetwork::Socket::Socket(int domain, int service, int protocol, int port, uint32
     
     int opt = 1;
     if (setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) < 0) {
-        perror("setsockopt(SO_REUSEADDR) failed");
+        perror("setsockopt(SO_REUSEADDR) failed...");
         exit(EXIT_FAILURE);
     }
     
     if (setsockopt(sock, IPPROTO_TCP, TCP_NODELAY, &opt, sizeof(opt)) < 0) {
-        perror("setsockopt(TCP_NODELAY) failed");
+        perror("setsockopt(TCP_NODELAY) failed...");
         exit(EXIT_FAILURE);
     }
 
@@ -26,14 +26,6 @@ gnetwork::Socket::~Socket() {
     close(sock);
 }
 
-void gnetwork::Socket::test_conn(int item_to_test) {
-
-    // checks if socket connection has been successully established 
-    if (item_to_test < 0) {
-        throw std::runtime_error("Failed to create socket");
-    }
-}
-
 struct sockaddr_in gnetwork::Socket::get_address() const {
     return address;
 }
@@ -41,3 +33,12 @@ struct sockaddr_in gnetwork::Socket::get_address() const {
 int gnetwork::Socket::get_sock() const {
     return sock;
 }
+
+void gnetwork::Socket::test_conn(int test_socket) {
+
+    // checks if socket connection has been successully established 
+    if (test_socket < 0) {
+        throw std::runtime_error("Failed to create socket...");
+    }
+}
+

@@ -14,7 +14,7 @@ namespace gnetwork {
     private:
         ConnectingSocket* cli_socket;
 
-    protected:  // Make these accessible to derived classes
+    protected:  // make these methods accessible to derived classes
         virtual void writer() = 0;
         virtual void print_buffer() = 0;
 

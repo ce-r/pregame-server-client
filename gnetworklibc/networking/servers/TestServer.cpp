@@ -20,7 +20,7 @@ void gnetwork::TestServer::print_buffer() {
 }
 
 void gnetwork::TestServer::writer() {
-    const char* hello = "hello from server";
+    const char* hello = "Hello from server";
     if (write(new_socket, hello, strlen(hello)) < 0) {
         throw std::runtime_error("Failed to write to socket");
     }
@@ -29,14 +29,13 @@ void gnetwork::TestServer::writer() {
 
 void gnetwork::TestServer::slaunch() {
     while (true) {
-        std::cout << "==== waiting for connections ====" << std::endl;
+        std::cout << "Waiting for connections..." << std::endl;
         acceptance();
         writer();
         print_buffer();
-        std::cout << "==== done ====" << std::endl;
+        std::cout << "Done..." << std::endl;
     }
 }
-
 
 void gnetwork::TestServer::launch() {
     std::cout << "Launching TestServer...\n";

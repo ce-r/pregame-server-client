@@ -16,7 +16,7 @@ gnetwork::ListeningSocket::~ListeningSocket() {
 void gnetwork::ListeningSocket::_listening() {
     listening = listen(get_sock(), backlog);
     if (listening < 0) {
-        throw std::runtime_error("Failed to listen on socket");
+        throw std::runtime_error("Failed to listen on socket...");
     }
 }
 

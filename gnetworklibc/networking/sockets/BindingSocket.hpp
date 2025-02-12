@@ -2,7 +2,6 @@
 #ifndef BindingSocket_hpp
 #define BindingSocket_hpp
 
-// #include <stdio.h>
 #include "Socket.hpp"
 
 
