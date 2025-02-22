@@ -79,7 +79,7 @@ int main() {
         handle_tcp_tls(ssl);
     }
 
-    // UDP Streaming
+    // UDP streaming
     int udp_sock = socket(AF_INET, SOCK_DGRAM, 0);
     struct sockaddr_in udp_addr{};
     udp_addr.sin_family = AF_INET;
