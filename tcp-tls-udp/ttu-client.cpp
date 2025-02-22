@@ -61,7 +61,7 @@ int main() {
     init_openssl();
     SSL_CTX* ctx = create_client_context();
 
-    // TCP/TLS Connection
+    // TCP/TLS connection
     int tcp_sock = socket(AF_INET, SOCK_STREAM, 0);
     struct sockaddr_in tcp_addr{};
     tcp_addr.sin_family = AF_INET;
