@@ -88,7 +88,6 @@ int main() {
 
     udp_streaming(udp_sock, udp_addr);
 
-    // Cleanup
     SSL_free(ssl);
     close(tcp_sock);
     close(udp_sock);
