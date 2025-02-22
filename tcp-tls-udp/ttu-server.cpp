@@ -77,7 +77,6 @@ int main() {
     SSL_CTX* ctx = create_server_context();
     configure_context(ctx);
 
-    // TCP Socket
     int tcp_sock = socket(AF_INET, SOCK_STREAM, 0);
     struct sockaddr_in tcp_addr{};
     tcp_addr.sin_family = AF_INET;
@@ -89,7 +88,6 @@ int main() {
 
     std::cout << "TCP/TLS Server listening on port " << TCP_PORT << std::endl;
 
-    // UDP Socket
     int udp_sock = socket(AF_INET, SOCK_DGRAM, 0);
     struct sockaddr_in udp_addr{};
     udp_addr.sin_family = AF_INET;
@@ -99,7 +97,7 @@ int main() {
     bind(udp_sock, (struct sockaddr*)&udp_addr, sizeof(udp_addr));
     std::cout << "UDP Server listening on port " << UDP_PORT << std::endl;
 
-    // Accept TCP/TLS Connection
+    // accept TCP/TLS Connection
     struct sockaddr_in client_addr;
     socklen_t len = sizeof(client_addr);
     int client_sock = accept(tcp_sock, (struct sockaddr*)&client_addr, &len);
@@ -112,10 +110,9 @@ int main() {
         handle_tcp_tls(ssl);
     }
 
-    // Start UDP Streaming in the main thread
+    // start UDP streaming in the main thread
     udp_streaming(udp_sock);
 
-    // Cleanup
     SSL_free(ssl);
     close(client_sock);
     close(tcp_sock);
