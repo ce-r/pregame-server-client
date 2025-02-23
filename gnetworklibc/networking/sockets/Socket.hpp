@@ -23,11 +23,12 @@ namespace gnetwork {
             Socket(int domain, int service, int protocol, int port, uint32_t interface);
             virtual ~Socket();
 
-            virtual int conn_to_netw(int sock, const struct sockaddr_in &address) = 0; 
+            virtual int bind2netw(int sock, const struct sockaddr_in &address) = 0; 
             
-            void test_conn(int sock);
+            void test_sock(int sock);
             
             struct sockaddr_in get_address() const;
+            void set_address(const struct sockaddr_in &addr);
             int get_sock() const;
     };
 }

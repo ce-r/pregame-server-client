@@ -11,7 +11,7 @@ namespace gnetwork {
         private:
             char buffer[30000] = {0};
             int new_socket;
-            void acceptance();
+            void reader();
             void writer();
             void print_buffer();
         
@@ -23,3 +23,4 @@ namespace gnetwork {
 }
 
 #endif
+
