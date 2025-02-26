@@ -1,6 +1,6 @@
 
-#ifndef AcceptingSocket_hpp
-#define AcceptingSocket_hpp
+#ifndef AcceptingSocket_HPP
+#define AcceptingSocket_HPP
 
 #include "ListeningSocket.hpp"
 

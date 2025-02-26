@@ -1,6 +1,6 @@
 
-#ifndef ListeningSocket_hpp
-#define ListeningSocket_hpp
+#ifndef ListeningSocket_HPP
+#define ListeningSocket_HPP
 
 #include <stdio.h>
 #include "BindingSocket.hpp"

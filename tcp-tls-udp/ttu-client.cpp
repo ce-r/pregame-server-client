@@ -1,5 +1,4 @@
 
-
 // client.cpp
 
 #include <iostream>
@@ -9,6 +8,7 @@
 #include <sys/socket.h>
 #include <openssl/ssl.h>
 #include <openssl/err.h>
+#include <thread>
 
 #define SERVER_IP "127.0.0.1"
 #define TCP_PORT 4443
@@ -35,25 +35,32 @@ SSL_CTX* create_client_context() {
     return ctx;
 }
 
-void handle_tcp_tls(SSL* ssl) {
-    const char* msg = "Hello from TLS client!";
-    SSL_write(ssl, msg, strlen(msg));
+void handle_tls_chat(SSL* ssl, int udp_sock, struct sockaddr_in udp_addr) {
+    char buffer[BUFFER_SIZE];
+    while (true) {
+        std::string msg;
+        std::cout << "Client: ";
+        std::getline(std::cin, msg);
 
-    char buffer[BUFFER_SIZE] = {0};
-    int bytes = SSL_read(ssl, buffer, sizeof(buffer));
-    if (bytes > 0) {
-        std::cout << "TCP/TLS Response: " << buffer << std::endl;
-    } else {
-        ERR_print_errors_fp(stderr);
-    }
-}
+        if (msg == "/quit") {
+            break;
+        } else if (msg == "/stream") {
+            // trigger UDP message
+            const char* udp_msg = "Triggered UDP Stream Message!";
+            sendto(udp_sock, udp_msg, strlen(udp_msg), 0, (struct sockaddr*) &udp_addr, sizeof(udp_addr));
+            std::cout << "[UDP Sent]: " << udp_msg << std::endl;
+        } else {
+            // send over TLS
+            SSL_write(ssl, msg.c_str(), msg.length());
 
-void udp_streaming(int udp_sock, struct sockaddr_in udp_addr) {
-    const char* stream_msg = "Streaming via UDP!";
-    for (int i = 0; i < 10; ++i) {
-        sendto(udp_sock, stream_msg, strlen(stream_msg), 0, (struct sockaddr*)&udp_addr, sizeof(udp_addr));
-        std::cout << "Sent UDP Stream: " << stream_msg << std::endl;
-        sleep(1);
+            memset(buffer, 0, BUFFER_SIZE);
+            int bytes = SSL_read(ssl, buffer, sizeof(buffer));
+            if (bytes <= 0) {
+                std::cout << "Server disconnected or error occurred." << std::endl;
+                break;
+            }
+            std::cout << "Server: " << buffer << std::endl;
+        }
     }
 }
 
@@ -68,7 +75,10 @@ int main() {
     tcp_addr.sin_port = htons(TCP_PORT);
     inet_pton(AF_INET, SERVER_IP, &tcp_addr.sin_addr);
 
-    connect(tcp_sock, (struct sockaddr*)&tcp_addr, sizeof(tcp_addr));
+    if (connect(tcp_sock, (struct sockaddr*) &tcp_addr, sizeof(tcp_addr)) < 0) {
+        perror("TCP connection failed");
+        exit(EXIT_FAILURE);
+    }
 
     SSL* ssl = SSL_new(ctx);
     SSL_set_fd(ssl, tcp_sock);
@@ -76,21 +86,22 @@ int main() {
     if (SSL_connect(ssl) <= 0) {
         ERR_print_errors_fp(stderr);
     } else {
-        handle_tcp_tls(ssl);
+        std::cout << "TLS connection established!" << std::endl;
+
+        int udp_sock = socket(AF_INET, SOCK_DGRAM, 0);
+        struct sockaddr_in udp_addr{};
+        udp_addr.sin_family = AF_INET;
+        udp_addr.sin_port = htons(UDP_PORT);
+        inet_pton(AF_INET, SERVER_IP, &udp_addr.sin_addr);
+
+        // start chat + manual UDP trigger
+        handle_tls_chat(ssl, udp_sock, udp_addr);
+
+        close(udp_sock);
     }
-
-    // UDP streaming
-    int udp_sock = socket(AF_INET, SOCK_DGRAM, 0);
-    struct sockaddr_in udp_addr{};
-    udp_addr.sin_family = AF_INET;
-    udp_addr.sin_port = htons(UDP_PORT);
-    inet_pton(AF_INET, SERVER_IP, &udp_addr.sin_addr);
-
-    udp_streaming(udp_sock, udp_addr);
 
     SSL_free(ssl);
     close(tcp_sock);
-    close(udp_sock);
     SSL_CTX_free(ctx);
     cleanup_openssl();
 
