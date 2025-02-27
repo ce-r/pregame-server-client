@@ -1,11 +1,11 @@
 
-#include "TestServer.hpp"
+#include "TestTCPServer.hpp"
 #include <string.h>
 
 
-gnetwork::TestServer::TestServer() : BasicServer(AF_INET, SOCK_STREAM, 0, 8080, INADDR_ANY, 10) {}
+gnetwork::TestTCPServer::TestTCPServer() : TCPServer(AF_INET, SOCK_STREAM, 0, 8080, INADDR_ANY, 10) {}
 
-void gnetwork::TestServer::reader() {
+void gnetwork::TestTCPServer::reader() {
     struct sockaddr_in server_address = get_serv_socket()->get_address();
     int server_sock = get_serv_socket()->get_sock();
     std::cout << "Waiting for a new connection on socket: " << server_sock << std::endl;
@@ -45,11 +45,11 @@ void gnetwork::TestServer::reader() {
     }
 }
 
-void gnetwork::TestServer::print_buffer() {
+void gnetwork::TestTCPServer::print_buffer() {
     std::cout << buffer << std::endl;
 }
 
-void gnetwork::TestServer::writer() {
+void gnetwork::TestTCPServer::writer() {
     const char* hello = "Hello from server";
     if (write(new_socket, hello, strlen(hello)) < 0) {
         throw std::runtime_error("Failed to write to socket");
@@ -57,7 +57,7 @@ void gnetwork::TestServer::writer() {
     close(new_socket);
 }
 
-void gnetwork::TestServer::slaunch() {
+void gnetwork::TestTCPServer::slaunch() {
     while (true) {
         std::cout << "Waiting for connections..." << std::endl;
         reader();
@@ -65,7 +65,7 @@ void gnetwork::TestServer::slaunch() {
     }
 }
 
-void gnetwork::TestServer::launch() {
-    std::cout << "Launching TestServer...\n";
+void gnetwork::TestTCPServer::launch() {
+    std::cout << "Launching TestTCPServer...\n";
     slaunch();
 }

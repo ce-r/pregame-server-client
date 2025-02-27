@@ -1,6 +1,6 @@
 
-#ifndef BasicClient_HPP
-#define BasicClient_HPP
+#ifndef TCPClient_HPP
+#define TCPClient_HPP
 
 #include <stdio.h>
 #include <unistd.h>
@@ -10,20 +10,20 @@
 
 
 namespace gnetwork {
-    class BasicClient {
+    class TCPClient {
         private:
             ConnectingSocket* cli_socket;
 
         protected:  // make these methods accessible to derived classes
-            virtual void reader() = 0;
-            virtual void writer() = 0;
-            virtual void print_buffer() = 0;
+            // virtual void reader();
+            // virtual void writer();
+            // virtual void print_buffer();
 
         public:
-            BasicClient(int domain, int service, int protocol, int port, uint32_t interface);
-            virtual ~BasicClient();
+            TCPClient(int domain, int service, int protocol, int port, uint32_t interface);
+            virtual ~TCPClient();
 
-            virtual void claunch() = 0;  
+            // virtual void claunch();  
             virtual void launch() = 0;   
 
             ConnectingSocket* get_cli_socket() const;

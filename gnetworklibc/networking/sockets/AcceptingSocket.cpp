@@ -16,12 +16,12 @@ int gnetwork::AcceptingSocket::accnetw(int sock, const struct sockaddr_in &serve
     accept_sock = accept(sock, (struct sockaddr*) &client_address, &addrlen);
 
     if (accept_sock < 0) {
-        perror("Accept failed");
+        perror("[AcceptingSocket] Accept failed");
     } else {
         char client_ip[INET_ADDRSTRLEN];
         inet_ntop(AF_INET, &client_address.sin_addr, client_ip, INET_ADDRSTRLEN);
-        std::cout << "Accepted connection from " << client_ip << ":" << ntohs(client_address.sin_port) << std::endl;
-        std::cout << "Connected socket FD: " << accept_sock << std::endl;  // Log accepted socket
+        std::cout << "[AcceptingSocket] Accepted connection from " << client_ip 
+                  << ":" << ntohs(client_address.sin_port) << std::endl;
     }
 
     return accept_sock;

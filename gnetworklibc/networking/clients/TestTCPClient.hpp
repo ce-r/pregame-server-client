@@ -1,13 +1,13 @@
 
-#ifndef TestClient_HPP
-#define TestClient_HPP
+#ifndef TestTCPClient_HPP
+#define TestTCPClient_HPP
 
 #include <stdio.h>
-#include "BasicClient.hpp"
+#include "TCPClient.hpp"
 
 
 namespace gnetwork {
-    class TestClient : public BasicClient {
+    class TestTCPClient : public TCPClient {
         private:
             char buffer[30000] = {0};
             int new_socket;
@@ -16,7 +16,7 @@ namespace gnetwork {
             void print_buffer() override;
         
         public:
-            TestClient();
+            TestTCPClient();
             void claunch() override;
             void launch() override;
     };  

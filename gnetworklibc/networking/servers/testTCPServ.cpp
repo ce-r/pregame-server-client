@@ -1,10 +1,10 @@
 
 #include <stdio.h>
-#include "TestServer.hpp"
+#include "TestTCPServer.hpp"
 
 
 int main() {
-    gnetwork::TestServer server;
+    gnetwork::TestTCPServer server;
     server.launch(); 
     return 0;
 }

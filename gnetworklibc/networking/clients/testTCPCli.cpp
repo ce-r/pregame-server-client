@@ -1,10 +1,10 @@
 
 #include <stdio.h>
-#include "TestClient.hpp"
+#include "TestTCPClient.hpp"
 
 
 int main() {
-    gnetwork::TestClient client;
+    gnetwork::TestTCPClient client;
     client.launch(); 
     return 0;
 }

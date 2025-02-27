@@ -1,13 +1,13 @@
 
-#ifndef TestServer_HPP
-#define TestServer_HPP
+#ifndef TestTCPServer_HPP
+#define TestTCPServer_HPP
 
 #include <stdio.h>
-#include "BasicServer.hpp"
+#include "TCPServer.hpp"
 
 
 namespace gnetwork {
-    class TestServer : public BasicServer {
+    class TestTCPServer : public TCPServer {
         private:
             char buffer[30000] = {0};
             int new_socket;
@@ -16,7 +16,7 @@ namespace gnetwork {
             void print_buffer();
         
         public:
-            TestServer();
+            TestTCPServer();
             void slaunch() override; 
             void launch() override;
     };  

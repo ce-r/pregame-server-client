@@ -18,6 +18,7 @@ namespace gnetwork {
         private:
             int sock;
             struct sockaddr_in address;
+            int socket_type;
 
         public: 
             Socket(int domain, int service, int protocol, int port, uint32_t interface);
@@ -30,6 +31,7 @@ namespace gnetwork {
             struct sockaddr_in get_address() const;
             void set_address(const struct sockaddr_in &addr);
             int get_sock() const;
+            int get_socket_type() const; 
     };
 }
 

@@ -1,9 +1,9 @@
 
-#include "TestClient.hpp"
+#include "TestTCPClient.hpp"
 #include <string.h>
 
 
-gnetwork::TestClient::TestClient() : BasicClient(AF_INET, SOCK_STREAM, 0, 8080, inet_addr("127.0.0.1")) {
+gnetwork::TestTCPClient::TestTCPClient() : TCPClient(AF_INET, SOCK_STREAM, 0, 8080, inet_addr("127.0.0.1")) {
     struct sockaddr_in addr;
     addr.sin_family = AF_INET;
     addr.sin_port = htons(8080);
@@ -16,11 +16,11 @@ gnetwork::TestClient::TestClient() : BasicClient(AF_INET, SOCK_STREAM, 0, 8080, 
     get_cli_socket()->set_address(addr);
 }
 
-void gnetwork::TestClient::print_buffer() {
+void gnetwork::TestTCPClient::print_buffer() {
     std::cout << buffer << std::endl;
 }
 
-void gnetwork::TestClient::writer() {
+void gnetwork::TestTCPClient::writer() {
     if (new_socket <= 0) {
         throw std::runtime_error("Invalid socket. Cannot write.");
     }
@@ -36,7 +36,7 @@ void gnetwork::TestClient::writer() {
     }
 }
 
-void gnetwork::TestClient::reader() {
+void gnetwork::TestTCPClient::reader() {
     ssize_t bytes_read = read(new_socket, buffer, sizeof(buffer) - 1);
     if (bytes_read <= 0) {
         perror("Read failed or server closed connection");
@@ -48,7 +48,7 @@ void gnetwork::TestClient::reader() {
     std::cout << "Received from server: " << buffer << std::endl;
 }
 
-void gnetwork::TestClient::claunch() {
+void gnetwork::TestTCPClient::claunch() {
     std::cout << "Connecting..." << std::endl;
     new_socket = get_cli_socket()->conn2netw(get_cli_socket()->get_sock(), get_cli_socket()->get_address());
 
@@ -82,8 +82,20 @@ void gnetwork::TestClient::claunch() {
     std::cout << "Done." << std::endl;
 }
 
-void gnetwork::TestClient::launch() {
+void gnetwork::TestTCPClient::launch() {
     std::cout << "Launching TestClient...\n";
     claunch();
 }
 
+
+
+// the listening socket fd: 3 listens on port 8080
+// when the client connects, the server creates a new socket fd: 4 for that connection.
+// listening socket fd 3 continues to listen for other clients
+// while new calls to accept require a new fd
+
+// i.e.
+// Listening socket FD: 3
+// Client 1 connected -> new FD: 4
+// Client 2 connected -> new FD: 5
+// Client 3 connected -> new FD: 6
