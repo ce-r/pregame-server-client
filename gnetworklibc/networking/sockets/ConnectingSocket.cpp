@@ -37,26 +37,11 @@ int gnetwork::ConnectingSocket::conn2netw(int sock, const struct sockaddr_in &ad
     
     std::cout << "[ConnectingSocket] TCP connection established." << std::endl;
     return sock;
-
-    // const int MAX_ATTEMPTS = 5;
-    // int delay = 1;  // Initial delay in seconds
-
-    // for (int attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
-    //     if (connect(sock, (struct sockaddr*) &address, sizeof(address)) == 0) {
-    //         std::cout << "Successfully connected!" << std::endl;
-    //         return sock;
-    //     } else {
-    //         perror("Connect failed");
-    //         sleep(delay);
-    //         delay *= 2;  // Exponential backoff
-    //     }
-    // }
-
-    // std::cerr << "Failed to connect after multiple attempts. Exiting..." << std::endl;
-    // return -1;
 }
 
 int gnetwork::ConnectingSocket::bind2netw(int sock, const struct sockaddr_in &address) {
     // Clients typically don't bind, so this can be empty or return success
     return 0;
 }
+
+// 30

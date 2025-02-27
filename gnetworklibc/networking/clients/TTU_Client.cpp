@@ -3,7 +3,7 @@
 
 
 gnetwork::TTU_Client::TTU_Client(int domain, int service, int protocol, int port, uint32_t interface) : 
-                       TTU_ChatBase("", "", false), // pass true for server
+                       TTU_ChatBase("", "", false), // pass true for server certs
                        TCPClient(domain, service, protocol, port, interface), // inet_addr("127.0.0.1")
                        UDPClient(domain, SOCK_DGRAM, IPPROTO_UDP, 5555, interface) {} // inet_addr("127.0.0.1")
 
@@ -23,3 +23,5 @@ void gnetwork::TTU_Client::launch() {
     
     SSL_free(ssl);
 }
+
+// 20

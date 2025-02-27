@@ -72,3 +72,5 @@ void gnetwork::Socket::set_address(const struct sockaddr_in &addr) {
 int gnetwork::Socket::get_socket_type() const {
     return socket_type;
 }
+
+// 70

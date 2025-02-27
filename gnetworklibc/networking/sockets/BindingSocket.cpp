@@ -28,3 +28,5 @@ int gnetwork::BindingSocket::bind2netw(int sock, const struct sockaddr_in &addre
 int gnetwork::BindingSocket::get_binding() const {
     return binding;
 }
+
+// 20

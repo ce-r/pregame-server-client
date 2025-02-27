@@ -11,3 +11,8 @@ std::string gnetwork::TTU_ChatUtils::get_user_input() {
     std::getline(std::cin, input);
     return input;
 }
+
+// 5
+// total 160
+
+// running total ~620

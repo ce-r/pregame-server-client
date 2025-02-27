@@ -57,15 +57,17 @@ void gnetwork::TestTCPServer::writer() {
     close(new_socket);
 }
 
-void gnetwork::TestTCPServer::slaunch() {
-    while (true) {
-        std::cout << "Waiting for connections..." << std::endl;
-        reader();
-        std::cout << "Done..." << std::endl;
-    }
-}
+// void gnetwork::TestTCPServer::slaunch() {
+//     while (true) {
+//         std::cout << "Waiting for connections..." << std::endl;
+//         reader();
+//         std::cout << "Done..." << std::endl;
+//     }
+// }
 
 void gnetwork::TestTCPServer::launch() {
     std::cout << "Launching TestTCPServer...\n";
-    slaunch();
+    // slaunch();
 }
+
+// 50
