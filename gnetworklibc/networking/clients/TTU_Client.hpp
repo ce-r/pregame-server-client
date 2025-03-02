@@ -10,7 +10,7 @@
 
 
 namespace gnetwork {
-    class TTU_Client : public TTU_ChatBase, public TCPClient, public UDPClient {
+    class TTU_Client : public TTU_ChatBase, public UDPClient, public TCPClient {
         public:
             TTU_Client(int domain, int service, int protocol, int port, uint32_t interface);
             void launch();

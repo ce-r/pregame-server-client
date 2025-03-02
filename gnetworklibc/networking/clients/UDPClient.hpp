@@ -14,6 +14,7 @@ namespace gnetwork {
             UDPClient(int domain, int service, int protocol, int port, uint32_t interface);
             ~UDPClient();
             void send_udp_message(const std::string &msg);
+            ConnectingSocket* get_udp_socket() const;
     };
 }
 

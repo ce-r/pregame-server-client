@@ -32,6 +32,7 @@ void gnetwork::TTU_Server::launch() {
     SSL* ssl = SSL_new(get_tls_context());
     SSL_set_fd(ssl, client_sock);
     
+    // TLS chat
     if (SSL_accept(ssl) > 0) {
         std::cout << "TLS connection established!" << std::endl;
         handle_tls_chat(ssl, true);
@@ -42,6 +43,14 @@ void gnetwork::TTU_Server::launch() {
 
     SSL_free(ssl);
     close(client_sock);
+
+    // DTLS chat
+    std::cout << "[TTU_Server] Waiting for DTLS chat..." << std::endl;
+    struct sockaddr_in client_addr;
+    socklen_t client_len = sizeof(client_addr);
+    int udp_sock = get_udp_socket()->get_sock();
+
+    handle_dtls_chat(get_dtls_context(), udp_sock, client_addr, true);
 }
 
 

@@ -28,6 +28,7 @@ void gnetwork::TTU::cleanup_openssl() {
     EVP_cleanup();
 }
 
+// DTLS instead of TLS
 SSL_CTX* gnetwork::TTU::create_context(bool is_server) { // server and client 
     const SSL_METHOD* method = is_server ? TLS_server_method() : TLS_client_method();
     SSL_CTX* ctx = SSL_CTX_new(method);

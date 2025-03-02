@@ -22,6 +22,13 @@ void gnetwork::TTU_Client::launch() {
     }
     
     SSL_free(ssl);
+
+    // DTLS Chat
+    std::cout << "[TTU_Client] Connecting to DTLS chat..." << std::endl;
+    struct sockaddr_in server_addr;
+    int udp_sock = get_udp_socket()->get_sock();
+
+    handle_dtls_chat(get_dtls_context(), udp_sock, server_addr, false);
 }
 
 // 20

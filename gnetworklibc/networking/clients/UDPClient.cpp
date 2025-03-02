@@ -22,5 +22,9 @@ void gnetwork::UDPClient::send_udp_message(const std::string &msg) {
     std::cout << "[UDP Sent]: " << msg << std::endl;
 }
 
+gnetwork::ConnectingSocket* gnetwork::UDPClient::get_udp_socket() const {
+    return udp_socket;
+}
+
 // 10
 
