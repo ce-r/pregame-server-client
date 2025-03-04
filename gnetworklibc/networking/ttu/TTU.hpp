@@ -21,7 +21,6 @@ namespace gnetwork {
             void cleanup_openssl();
             SSL_CTX* create_context(bool is_server);
 
-            void configure_context(SSL_CTX* ctx);
             SSL_CTX* get_context() const;
 
             std::string get_crt(); 

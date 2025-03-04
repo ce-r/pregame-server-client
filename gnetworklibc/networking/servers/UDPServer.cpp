@@ -23,7 +23,7 @@ void gnetwork::UDPServer::udp_listener() {
 
     while (running) {
         int bytes = recvfrom(udp_socket->get_sock(), buffer, sizeof(buffer), 0, 
-                             (struct sockaddr*)&client_addr, &addr_len);
+                             (struct sockaddr*) &client_addr, &addr_len);
         if (bytes > 0) {
             buffer[bytes] = '\0';
             std::cout << "[UDP Received]: " << buffer << std::endl;

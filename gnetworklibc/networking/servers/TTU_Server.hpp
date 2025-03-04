@@ -8,6 +8,7 @@
 #include "TCPServer.hpp"
 #include "UDPServer.hpp"
 #include <thread>
+#include <vector>
 
 namespace gnetwork {
     class TTU_Server : public TTU_ChatBase, public UDPServer, public TCPServer {

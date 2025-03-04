@@ -7,9 +7,6 @@ gnetwork::TTU::TTU(const std::string &filen_crt, const std::string &filen_key, b
                 : server_crt(filen_crt), server_key(filen_key), ctx(nullptr) {
     init_openssl();
     ctx = create_context(is_server);  // pass `is_server` instead of always assuming `true`
-    if (is_server) {  
-        configure_context(ctx);
-    }
 };
 
 gnetwork::TTU::~TTU() {
@@ -38,7 +35,7 @@ SSL_CTX* gnetwork::TTU::create_context(bool is_server) { // server and client
         throw std::runtime_error("Unable to create SSL context");
     }
 
-    if (is_server) {
+    if (is_server) { 
         if (SSL_CTX_use_certificate_file(ctx, server_crt.c_str(), SSL_FILETYPE_PEM) <= 0 ||
             SSL_CTX_use_PrivateKey_file(ctx, server_key.c_str(), SSL_FILETYPE_PEM) <= 0) {
             ERR_print_errors_fp(stderr);
@@ -47,14 +44,6 @@ SSL_CTX* gnetwork::TTU::create_context(bool is_server) { // server and client
     }
     
     return ctx;
-}
-
-void gnetwork::TTU::configure_context(SSL_CTX* ctx) {
-    if (SSL_CTX_use_certificate_file(ctx, server_crt.c_str(), SSL_FILETYPE_PEM) <= 0 ||
-        SSL_CTX_use_PrivateKey_file(ctx, server_key.c_str(), SSL_FILETYPE_PEM) <= 0) {
-        ERR_print_errors_fp(stderr);
-        throw std::runtime_error("Failed to configure SSL context");
-    }
 }
 
 SSL_CTX* gnetwork::TTU::get_context() const { 

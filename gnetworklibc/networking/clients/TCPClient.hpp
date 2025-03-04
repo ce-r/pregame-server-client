@@ -4,6 +4,8 @@
 
 #include <stdio.h>
 #include <unistd.h>
+#include <thread>
+#include <vector>
 
 #include "../sockets/ConnectingSocket.hpp"
 #include "../gnetworklibc-networking.hpp"

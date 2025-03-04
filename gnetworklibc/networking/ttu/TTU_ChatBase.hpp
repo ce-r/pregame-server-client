@@ -7,6 +7,8 @@
 #include <openssl/ssl.h>
 #include <netinet/in.h>
 #include <string>
+#include <set>
+
 
 namespace gnetwork {
     class TTU_ChatBase : public TTU {
