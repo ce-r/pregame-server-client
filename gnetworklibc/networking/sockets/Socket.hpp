@@ -24,7 +24,8 @@ namespace gnetwork {
             Socket(int domain, int service, int protocol, int port, uint32_t interface);
             virtual ~Socket();
 
-            virtual int bind2netw(int sock, const struct sockaddr_in &address) = 0; 
+            // virtual int bind2netw(int sock, const struct sockaddr_in &address) = 0;
+            virtual int bind2self(int sock, const struct sockaddr_in &address) = 0; 
             
             void test_sock(int sock);
             

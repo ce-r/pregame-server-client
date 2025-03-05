@@ -9,7 +9,7 @@ gnetwork::AcceptingSocket::~AcceptingSocket() {
     close(get_sock()); 
 }
 
-int gnetwork::AcceptingSocket::accnetw(int sock, const struct sockaddr_in &server_address) {
+int gnetwork::AcceptingSocket::acceptserv(int sock, const struct sockaddr_in &server_address) {
     struct sockaddr_in client_address;
     socklen_t addrlen = sizeof(client_address);
 

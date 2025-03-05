@@ -15,7 +15,7 @@ namespace gnetwork {
         public: 
             ListeningSocket(int domain, int service, int protocol, int port, uint32_t interface, int bklg);
             ~ListeningSocket();
-            void _listening();
+            void listen4client();
             int get_listening();
             int get_backlog();
     };

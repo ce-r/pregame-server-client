@@ -16,7 +16,7 @@ void gnetwork::TTU_Server::launch() {
     // Accept multiple TLS clients, TCP
     std::thread tcp_thread([this, &client_threads]() {
         while (true) {
-            int client_sock = get_serv_socket()->accnetw(get_serv_socket()->get_sock(), get_serv_socket()->get_address());
+            int client_sock = get_serv_socket()->acceptserv(get_serv_socket()->get_sock(), get_serv_socket()->get_address());
             if (client_sock < 0) {
                 perror("Client connection failed!");
                 continue;
